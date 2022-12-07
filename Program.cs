@@ -3,16 +3,16 @@ using System.Linq;
 using ClosedXML.Excel;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace SQLGenerator
 {
     internal class Program
     {
+        private static readonly string basePath = Directory.GetCurrentDirectory();
         static void Main(string[] args)
         {
             List<string> values = new List<string>();
-            var xls = new XLWorkbook(@"C:\Users\Matheus.Petrachin\source\repos\SQLGenerator\SQLGenerator\Temp\Excel.xlsx");
+            var xls = new XLWorkbook(Path.Combine(basePath, @"Temp/Excel.xlsx"));
 
             var registerType = 2;
             var planilha = xls.Worksheets.First(w => w.Name == "Planilha1");
@@ -26,9 +26,9 @@ namespace SQLGenerator
                 var B = planilha.Cell($"B{line}").Value?.ToString();
 
                 var auxC = planilha.Cell($"C{line}").Value.ToString();
-                var C = auxC.Substring(4,4) + "-" + auxC.Substring(2, 2) + "-" + auxC.Substring(0, 2);
+                var C = auxC.Substring(4, 4) + "-" + auxC.Substring(2, 2) + "-" + auxC.Substring(0, 2);
 
-                var auxD = planilha.Cell($"D{line}").Value.ToString();                
+                var auxD = planilha.Cell($"D{line}").Value.ToString();
                 var D = auxD == null || auxD == "" ? null : auxD.Substring(4, 4) + "-" + auxD.Substring(2, 2) + "-" + auxD.Substring(0, 2);
 
                 var E = planilha.Cell($"E{line}").Value?.ToString();
@@ -50,7 +50,7 @@ namespace SQLGenerator
         {
             try
             {
-                using (var fs = new FileStream(@"C:\Users\Matheus.Petrachin\source\repos\SQLGenerator\SQLGenerator\Temp\SQL.sql", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (var fs = new FileStream(Path.Combine(basePath, @"Temp\SQL.sql"), FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     using (var fw = new StreamWriter(fs))
                     {
