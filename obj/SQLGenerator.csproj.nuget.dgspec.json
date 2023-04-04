@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Matheus.Petrachin\\source\\repos\\SQLGenerator\\SQLGenerator\\SQLGenerator.csproj": {}
+    "C:\\Users\\Matheus.Petrachin\\Desktop\\SQLGenerator\\SQLGenerator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Matheus.Petrachin\\source\\repos\\SQLGenerator\\SQLGenerator\\SQLGenerator.csproj": {
+    "C:\\Users\\Matheus.Petrachin\\Desktop\\SQLGenerator\\SQLGenerator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Matheus.Petrachin\\source\\repos\\SQLGenerator\\SQLGenerator\\SQLGenerator.csproj",
+        "projectUniqueName": "C:\\Users\\Matheus.Petrachin\\Desktop\\SQLGenerator\\SQLGenerator.csproj",
         "projectName": "SQLGenerator",
-        "projectPath": "C:\\Users\\Matheus.Petrachin\\source\\repos\\SQLGenerator\\SQLGenerator\\SQLGenerator.csproj",
+        "projectPath": "C:\\Users\\Matheus.Petrachin\\Desktop\\SQLGenerator\\SQLGenerator.csproj",
         "packagesPath": "C:\\Users\\Matheus.Petrachin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Matheus.Petrachin\\source\\repos\\SQLGenerator\\SQLGenerator\\obj\\",
+        "outputPath": "C:\\Users\\Matheus.Petrachin\\Desktop\\SQLGenerator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Matheus.Petrachin\\AppData\\Roaming\\NuGet\\NuGet.Config",

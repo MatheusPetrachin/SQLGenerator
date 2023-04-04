@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XominmLAHHFrOIV1yA9AzTnUX2OJIsxek5WmJyUb7Rd8OyYbed+kIeylea7f8gXEyfmRfj9S8EoU7S6Nxc+2fw==",
+  "dgSpecHash": "jn4Cl16XeZl5jhopp6lt7aVBypKduMjrgwA4FIJnrtoh59IB0iBZWb3frIooQjxegijou9NGqzHlG1Yl/Ln6QQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Matheus.Petrachin\\source\\repos\\SQLGenerator\\SQLGenerator\\SQLGenerator.csproj",
+  "projectFilePath": "C:\\Users\\Matheus.Petrachin\\Desktop\\SQLGenerator\\SQLGenerator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Matheus.Petrachin\\.nuget\\packages\\closedxml\\0.97.0\\closedxml.0.97.0.nupkg.sha512",
     "C:\\Users\\Matheus.Petrachin\\.nuget\\packages\\documentformat.openxml\\2.16.0\\documentformat.openxml.2.16.0.nupkg.sha512",
