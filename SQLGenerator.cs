@@ -3,48 +3,26 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ClosedXML.Excel;
+using SQLGenerator.Models;
 
 namespace SQLGenerator
 {
-    public class SQLGenerator<T>
+    public class SQLGenerator<T> where T : IGenerateSQL  
     {        
         private static readonly string basePath = Directory.GetCurrentDirectory();
-        public void SQLGeneratorHandler(T type)
+        public void SQLGeneratorHandler()
         {
-            List<string> values = new List<string>();
-            var xls = new XLWorkbook(Path.Combine(basePath, @"Temp/Excel.xlsx"));
-
-            var registerType = 2;
-            var planilha = xls.Worksheets.First(w => w.Name == "Planilha1");
-
-            var totalLinhas = planilha.Rows().Count();
-
             string tableName = SQLGeneratorHelper.GetTableName(typeof(T));
-            List<string> columnNames = SQLGeneratorHelper.GetColumnNames(typeof(T));
-            values.Add($"INSERT INTO {tableName} VALUES");
+            List<string> columnNames = SQLGeneratorHelper.GetColumnNames(typeof(T));            
+            List<string> values = new List<string> { $"INSERT INTO {tableName} VALUES ({string.Join(", ", columnNames.Select(x => x))})" };
 
-            for (int line = 2; line <= totalLinhas; line++)
-            {
-                var A = planilha.Cell($"A{line}").Value?.ToString();
-                var B = planilha.Cell($"B{line}").Value?.ToString();
+            var xls = new XLWorkbook(Path.Combine(basePath, @"Temp/Excel.xlsx"));
+            var spreadsheet = xls.Worksheets.First(w => w.Name == "Planilha1");
+            var totalOfLines = spreadsheet.Rows().Count();
 
-                var auxC = planilha.Cell($"C{line}").Value.ToString();
-                var C = auxC.Substring(4, 4) + "-" + auxC.Substring(2, 2) + "-" + auxC.Substring(0, 2);
+            var instance = (T)Activator.CreateInstance(typeof(T));
 
-                var auxD = planilha.Cell($"D{line}").Value.ToString();
-                var D = auxD == null || auxD == "" ? null : auxD.Substring(4, 4) + "-" + auxD.Substring(2, 2) + "-" + auxD.Substring(0, 2);
-
-                var E = planilha.Cell($"E{line}").Value?.ToString();
-                var F = planilha.Cell($"F{line}").Value?.ToString();
-                var G = planilha.Cell($"G{line}").Value?.ToString();
-                var H = planilha.Cell($"H{line}").Value?.ToString();
-
-                var I = planilha.Cell($"I{line}").Value?.ToString().Replace("\'", "\"");
-
-                string value = @$"('{Guid.NewGuid()}',{registerType},{ReturnPropValue(A)},{ReturnPropValue(B)},{ReturnPropValue(C)},{ReturnPropValue(D)},{ReturnPropValue(E)},{ReturnPropValue(F)},{ReturnPropValue(G)},{ReturnPropValue(H)},{ReturnPropValue(I)}){(line == totalLinhas ? ";" : ",")}";
-
-                values.Add(value);
-            }
+            values.AddRange(instance.GenerateSQLInsert(spreadsheet, totalOfLines));
 
             CreateSQLArchive(values);
         }
@@ -71,12 +49,5 @@ namespace SQLGenerator
                 Console.WriteLine("ERROR THROWN");
             }
         }
-
-        public static string ReturnPropValue(string prop)
-        {
-            return prop == null || prop == "" ? "NULL" : $"'{prop.Replace('\'', '\"')}'";
-        }
-
-        
     }
 }
