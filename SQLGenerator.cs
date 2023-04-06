@@ -14,9 +14,9 @@ namespace SQLGenerator
         {
             string tableName = SQLGeneratorHelper.GetTableName(typeof(T));
             List<string> columnNames = SQLGeneratorHelper.GetColumnNames(typeof(T));            
-            List<string> values = new List<string> { $"INSERT INTO {tableName} VALUES ({string.Join(", ", columnNames.Select(x => x))})" };
+            List<string> values = new List<string> { $"INSERT INTO {tableName} ({string.Join(", ", columnNames.Select(x => x))}) VALUES" };
 
-            var xls = new XLWorkbook(Path.Combine(basePath, @"Temp/Excel.xlsx"));
+            var xls = new XLWorkbook(Path.Combine(basePath, @$"Temp/Excel/{tableName}.xlsx"));
             var spreadsheet = xls.Worksheets.First(w => w.Name == "Planilha1");
             var totalOfLines = spreadsheet.Rows().Count();
 
@@ -24,14 +24,14 @@ namespace SQLGenerator
 
             values.AddRange(instance.GenerateSQLInsert(spreadsheet, totalOfLines));
 
-            CreateSQLArchive(values);
+            CreateSQLArchive(values, tableName);
         }
 
-        public static void CreateSQLArchive(List<string> values)
+        public static void CreateSQLArchive(List<string> values, string table)
         {
             try
             {
-                using (var fs = new FileStream(Path.Combine(basePath, @"Temp\SQL.sql"), FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (var fs = new FileStream(Path.Combine(basePath, @$"Temp\SQL\INSERT_{table}.sql"), FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     using (var fw = new StreamWriter(fs))
                     {

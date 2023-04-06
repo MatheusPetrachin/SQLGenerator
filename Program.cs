@@ -6,8 +6,11 @@ namespace SQLGenerator
     {
         static void Main(string[] args)
         {
-            var generator = new SQLGenerator<Users>();
-            generator.SQLGeneratorHandler();
+            var generatorUsers = new SQLGenerator<Users>();
+            generatorUsers.SQLGeneratorHandler();
+
+            var generatorProfiles = new SQLGenerator<Profiles>();
+            generatorProfiles.SQLGeneratorHandler();
         }
     }
 }

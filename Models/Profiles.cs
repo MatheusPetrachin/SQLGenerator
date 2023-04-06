@@ -11,9 +11,17 @@ namespace SQLGenerator.Models
         public string Id { get; set; }
         public string Description { get; set; }
 
-        public List<string> GenerateSQLInsert(IXLWorksheet planilha, int line)
+        public List<string> GenerateSQLInsert(IXLWorksheet planilha, int totalOfLines)
         {
-            throw new NotImplementedException();
+            List<string> values = new List<string>();
+            for (int line = 1; line <= totalOfLines; line++)
+            {  
+                var A = planilha.Cell($"A{line}").Value?.ToString();              
+
+                string value = @$"('{Guid.NewGuid()}',{SQLGeneratorHelper.ReturnPropValue(A)}){(line == totalOfLines ? ";" : ",")}";
+                values.Add(value);
+            }
+            return values;
         }
     }
 }
