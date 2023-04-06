@@ -31,6 +31,12 @@ namespace SQLGenerator
         {
             try
             {
+                string[] txtList = Directory.GetFiles(Path.Combine(basePath, @$"Temp\SQL"), $"INSERT_{table}.sql");
+                foreach (string f in txtList)
+                {
+                    File.Delete(f);
+                }
+
                 using (var fs = new FileStream(Path.Combine(basePath, @$"Temp\SQL\INSERT_{table}.sql"), FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     using (var fw = new StreamWriter(fs))

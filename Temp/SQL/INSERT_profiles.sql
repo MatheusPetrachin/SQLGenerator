@@ -1,3 +1,3 @@
 INSERT INTO profiles (Id, Description) VALUES
-('a89b6313-eb2d-4b19-8e78-d194f519055d','Default Profile'),
-('efcf908d-8dad-4d71-a5ca-e0425b22744a','Profile Specific');
+('b0d27327-1b86-47c9-ad23-347f70a30c8b','Default Profile'),
+('61ca6ae9-3d2c-49b7-9f1f-921d0f3698a0','Profile Specific');
