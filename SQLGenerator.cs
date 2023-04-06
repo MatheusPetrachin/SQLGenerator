@@ -44,9 +44,9 @@ namespace SQLGenerator
                     }
                 }
             }
-            catch (IOException)
+            catch (Exception ex)
             {
-                Console.WriteLine("ERROR THROWN");
+                Console.WriteLine($"[ERRRO] - {ex.Message}");
             }
         }
     }
