@@ -1,4 +1,4 @@
 INSERT INTO profiles (Id, Description) VALUES
-('c94ce3df-6c74-4c37-9616-29d2bd4b5855','Default Profile'),
-('b1d75fda-7879-4c42-ba13-c2452672927f','Profile Specific');
+('ba8df7a0-d0c9-40c7-b5c6-ad2dc2a7bef3','Default Profile'),
+('14799bc9-5b3c-43dd-a992-9863d8be41f4','Profile Specific');
 ON CONFLICT DO NOTHING;

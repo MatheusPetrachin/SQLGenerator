@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using ClosedXML.Excel;
 
 namespace SQLGenerator
@@ -21,7 +17,8 @@ namespace SQLGenerator
         public static List<string> GetColumnNames(Type type)
         {
             List<string> columnNames = type.GetProperties().Select(x => x.Name).ToList();
-            columnNames.ForEach(name => {
+            columnNames.ForEach(name =>
+            {
                 Console.WriteLine($"Column Name: {name}.");
             });
             return columnNames;
