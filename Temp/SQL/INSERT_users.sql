@@ -1,3 +1,4 @@
 INSERT INTO users (Id, Name, LastName, Email, Password, YearsOld) VALUES
-('7c46e876-d327-4556-a90b-a6b133b72a67','Matheus Roque','Petrachin','mpetrachin@gmail.com','123456','24'),
-('b4c490a7-ee82-482c-a0a8-f48f34b3961b','Juliana Roque','Petrachin','jpetrachin@gmail.com','123457','26');
+('e740345a-3b11-44ec-a97d-8b9f932570a9','Matheus Roque','Petrachin','mpetrachin@gmail.com','123456','24'),
+('13f3eae3-e949-4f1f-9cb5-addb0fddb4f2','Juliana Roque','Petrachin','jpetrachin@gmail.com','123457','26');
+ON CONFLICT DO NOTHING;

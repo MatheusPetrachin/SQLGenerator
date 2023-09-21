@@ -7,24 +7,32 @@ using SQLGenerator.Models;
 
 namespace SQLGenerator
 {
-    public class SQLGenerator<T> where T : IGenerateSQL  
-    {        
+    public class SQLGenerator<T> where T : IGenerateSQL
+    {
         private static readonly string basePath = Directory.GetCurrentDirectory();
+
         public void SQLGeneratorHandler()
         {
             string tableName = SQLGeneratorHelper.GetTableName(typeof(T));
-            List<string> columnNames = SQLGeneratorHelper.GetColumnNames(typeof(T));            
-            List<string> values = new List<string> { $"INSERT INTO {tableName} ({string.Join(", ", columnNames.Select(x => x))}) VALUES" };
+            List<string> columnNames = SQLGeneratorHelper.GetColumnNames(typeof(T));
 
-            var xls = new XLWorkbook(Path.Combine(basePath, @$"Temp/Excel/{tableName}.xlsx"));
-            var spreadsheet = xls.Worksheets.First(w => w.Name == "Planilha1");
-            var totalOfLines = spreadsheet.Rows().Count();
+            string[] files = Directory.GetFiles(Path.Combine(basePath, @$"Temp\Excel\"));
+            var fileNamesWithPrefix = files.Where(arquivo => Path.GetFileNameWithoutExtension(arquivo.ToLower()).StartsWith(tableName.ToLower())).Select(x => Path.GetFileNameWithoutExtension(x)).ToArray();
 
-            var instance = (T)Activator.CreateInstance(typeof(T));
+            foreach (string fileName in fileNamesWithPrefix)
+            {
+                List<string> values = new List<string> { $"INSERT INTO {tableName} ({string.Join(", ", columnNames.Select(x => x))}) VALUES" };
 
-            values.AddRange(instance.GenerateSQLInsert(spreadsheet, totalOfLines));
+                var xls = new XLWorkbook(Path.Combine(basePath, @$"Temp/Excel/{fileName}.xlsx"));
+                var spreadsheet = xls.Worksheets.First(w => w.Name == "Planilha1");
+                var totalOfLines = spreadsheet.Rows().Count();
 
-            CreateSQLArchive(values, tableName);
+                var instance = (T)Activator.CreateInstance(typeof(T));
+
+                values.AddRange(instance.GenerateSQLInsert(spreadsheet, totalOfLines));
+
+                CreateSQLArchive(values, fileName);
+            }
         }
 
         public static void CreateSQLArchive(List<string> values, string table)
@@ -42,7 +50,7 @@ namespace SQLGenerator
                         {
                             fw.WriteLine(x);
                         });
-
+                        fw.WriteLine("ON CONFLICT DO NOTHING;");
                         fw.Flush();
                     }
                 }
